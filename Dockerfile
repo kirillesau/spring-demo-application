@@ -1,10 +1,10 @@
-FROM maven:3-eclipse-temurin-17-alpine as build
-ENV HOME=/usr/app
-RUN mkdir -p $HOME
-WORKDIR $HOME
-ADD . $HOME
-RUN --mount=type=cache,target=/root/.m2 mvn -f $HOME/pom.xml clean package -Dmaven.test.skip
+FROM maven:3-openjdk-17-slim AS builder
+COPY . /build/.
+WORKDIR /build
+RUN mvn clean verify
 
-FROM eclipse-temurin:17-jdk-alpine
-COPY --from=build /usr/app/target/*.jar app.jar
+
+FROM openjdk:17-jdk-slim AS service
+EXPOSE 8080
+COPY --from=builder /build/target/*.jar app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
