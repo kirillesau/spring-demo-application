@@ -20,6 +20,7 @@ jobs:
           config-inline: |
             [registry."docker.io"]
               mirrors = ["mirror.gcr.io"]
+        run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
 #  build:
 #
 #    runs-on: ubuntu-latest
