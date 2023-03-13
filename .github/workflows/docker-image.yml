@@ -20,6 +20,8 @@ jobs:
           config-inline: |
             [registry."docker.io"]
               mirrors = ["mirror.gcr.io"]
+      -
+        name: build
         run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
 #  build:
 #
