@@ -26,8 +26,8 @@ The example has been created for learning purposes only.
 ### Docker
 
 ```shell
-docker build --platform linux/amd64 -t kirillesau/spring-demo-application .
-docker run -p 8081:8080 --platform linux/x86_64/v8 -d --name spring-demo kirillesau/spring-demo-application
+docker build -t kirillesau/spring-demo-application .
+docker run -p 8081:8080 -d --name spring-demo kirillesau/spring-demo-application
 ```
 
 ## Implementation help
