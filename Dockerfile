@@ -34,7 +34,7 @@ COPY src src
 
 RUN --mount=type=cache,target=/root/.m2,rw ./mvnw -B package
 
-FROM openjdk:17-jre-slim-buster
+FROM openjdk:17-jdk-slim
 
 COPY --from=build target/*.jar app.jar
 
