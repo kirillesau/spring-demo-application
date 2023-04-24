@@ -25,7 +25,7 @@
 #EXPOSE 8080
 
 
-FROM openjdk:11-slim-buster as build
+FROM openjdk:17-slim-buster as build
 
 COPY .mvn .mvn
 COPY mvnw .
@@ -34,7 +34,7 @@ COPY src src
 
 RUN --mount=type=cache,target=/root/.m2,rw ./mvnw -B package
 
-FROM openjdk:11-jre-slim-buster
+FROM openjdk:17-jre-slim-buster
 
 COPY --from=build target/*.jar app.jar
 
