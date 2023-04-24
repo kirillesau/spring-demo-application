@@ -9,14 +9,30 @@
 #COPY --from=builder /build/target/*.jar app.jar
 #ENTRYPOINT ["java","-jar","/app.jar"]
 
-FROM mvnd:0.6.0 as build
+#FROM mvnd:0.6.0 as build
+#
+#COPY .mvn .mvn
+#COPY mvnw .
+#COPY pom.xml .
+#COPY src src
+#
+#RUN /opt/mvnd/bin/mvnd -B package
+#
+#FROM openjdk:11-jre-slim-buster
+#
+#COPY --from=build target/*.jar app.jar
+#
+#EXPOSE 8080
+
+
+FROM openjdk:11-slim-buster as build
 
 COPY .mvn .mvn
 COPY mvnw .
 COPY pom.xml .
 COPY src src
 
-RUN /opt/mvnd/bin/mvnd -B package
+RUN --mount=type=cache,target=/root/.m2,rw ./mvnw -B package
 
 FROM openjdk:11-jre-slim-buster
 
