@@ -10,9 +10,16 @@ jobs:
         uses: actions/checkout@v4
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
+        with:
+          driver: docker
+          buildkitd-flags: --debug
+          install: true
+          builder: localbuilder
       - name: Build & Push
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
           tags: kirillesau/spring-demo-application:self-hosted
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
