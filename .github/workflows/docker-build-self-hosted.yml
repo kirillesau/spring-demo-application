@@ -14,7 +14,6 @@ jobs:
           driver: docker
           buildkitd-flags: --debug
           install: true
-          builder: localbuilder
       - name: Build & Push
         uses: docker/build-push-action@v5
         with:
